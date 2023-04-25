@@ -1,10 +1,10 @@
 # glassdoor-salary-prediction
 
-Employing Supervised Machine Learning Models to predict average salary of Glassdoor jobs. 
+Employing Supervised Machine Learning Models to predict average salary of Data Science Glassdoor jobs. 
 
 ## About dataset
 
-This dataset is sourced from Kaggle (https://www.kaggle.com/datasets/rashikrahmanpritom/data-science-job-posting-on-glassdoor). The dataset scrapes information about job posts from Glassdoor's. It contains the following fields:
+This dataset is sourced from Kaggle (https://www.kaggle.com/datasets/rashikrahmanpritom/data-science-job-posting-on-glassdoor). The dataset scrapes information about Data Science job posts from Glassdoor's. It contains the following fields:
 
 Job Title: Title of the job posting
 Salary Estimation: Salary range for that particular job
@@ -70,5 +70,8 @@ Random Forest model was able to predict 'avg_salary' with the best, R^2, MAE, an
 
 ## Next possible steps...
 
-The original dataset has ~660 rows and 15 columns. To improve the project, the dataset could be scraped again to include more meta information about each job posting and collect data over wider range. There is no data about the date the job was posted, it could be interesting to analyze trends over time. One could also do hyperparameter tuning to improve performance of XG model and add other models into consideration. 
+To improve the project, the dataset could be scraped again to include more types of job postings (eg SDE, PM, DA), more meta information (job benefits, reviews) collected over wider date range. Timestamps could be used to gather inights over season trends in job postings and salaries and allow us to account for seasonality (recessions, booms, periods of low hiring etc). 
+
+In terms of modeling, due to the relative small size of the dataset, it is prone to overfitting as ML models generalize patterns in training data.  One could improve quality of predictions by removing outliers. It could also be beenficial to combine the predictions of several models or the same model with different hyperparameters to reduce variance and enhance generalization. This could be done by obtaining a weighted avergae of various predictions. 
+
 
