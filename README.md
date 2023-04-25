@@ -21,7 +21,7 @@ Competitors: List of competitors
 Founded: year founded
 Index: index
 
-## Data Cleaning / Feature Engineerings
+## Data Cleaning / Feature Engineering
 
 Dataset needs to undergo extensive data cleaning and feature engineering. 
 
