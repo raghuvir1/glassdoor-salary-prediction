@@ -1,22 +1,74 @@
 # glassdoor-salary-prediction
 
-1. Use or create an original dataset (meaning that you haven't analyzed the dataset for this class before). Be sure to explain where your dataset comes from and where it can be found (or if you made it, how you made it). NOTE: Please be sure the dataset you're using can be shared (it's publicly available, you own it, or have permission to use it) and it doesn't contain HIPAA-protected data or sensitive data or PII (personally identifiable information)
+Employing Supervised Machine Learning Models to predict average salary of Glassdoor jobs. 
 
-Dataset sourced from Kaggle.
+## About dataset
 
-2. Identify what would make the dataset fit for use
+This dataset is sourced from Kaggle (https://www.kaggle.com/datasets/rashikrahmanpritom/data-science-job-posting-on-glassdoor). The dataset scrapes information about job posts from Glassdoor's. It contains the following fields:
 
-Dataset needs to undergo extensive data cleaning and feature engineering.
+Job Title: Title of the job posting
+Salary Estimation: Salary range for that particular job
+Job Description: This contains the full description of that job
+Rating: Rating of that post
+Company: Name of company
+Location: Location of the company
+Headquarter: Location of the headquater
+Size: Total employee in that company
+Type of ownership: Describes the company type i.e non-profit/public/private farm etc
+Industry, Sector: Field applicant will work in
+Revenue: Total revenue of the company
+Competitors: List of competitors
+Founded: year founded
+Index: index
 
-3. Evaluate if the data are fit for use or if cleaning will need to be done. It cleaning will need to be done, identify the cleaning steps that will be taken
+## Data Cleaning / Feature Engineerings
 
-Cleaning steps:
+Dataset needs to undergo extensive data cleaning and feature engineering. 
 
-Feature engineering:
+Summary of data cleaning and preprocessing steps:
+- Dropping redundant index column
+- Dropping duplicate rows
+- Removing rating from 'Company Name': 'Google\n4.4' --> "Google'
+- Extracting min, max, avg, and range from 'Salary Estimation' column
+- Replacing '-1' with Nan values, dropping sparse column 'Competitors'
+- Imputing Nan values in Rating with mean values
+- Calculating 'company age' based on 'Founded' column
+- Generating 'seniority' boolean column if 'Job Title' contains key workds like 'Sr', 'Senior', 'VP' etc. 
+- Extracting skills from job description column. Creating boolean columns for 'python', 'sql', 'aws', 'tableau', 'deep_learning', 'big_data', 'stats', 'cuda' , 1 if exists in description else 0
+- Using Ordinal Encoder to encode 'Company Name', 'industry', 'Job Title', 'Location' into numeric features for ML modeling. 
 
-Predicting avergae salary
+Engineered Features:
 
-Final predictions
+min_salary,max_salary,salary_range, avg_salary: Refers to the minimum, maximum, given range, and average salary for that post
+company_age: Age of company
+'python', 'sql', 'aws', 'tableau', 'deep_learning', 'big_data', 'stats', 'cuda': Some most appeared skills in boolean columns form
+seniority: if job type is senior or not (0/1)
+'company_name_code', 'industry_code', 'job_title_code', 'location_code': encoded categorical columns 
 
+## Modeling
 
-7. Analyze the data. Were you able to answer your questions/meet your objectives with the cleaned dataset? If not, what else might need to be done?
+Objective: Create a model that predicts 'avg_salary'.
+
+Following features selected for modeling: 'company_name_code', 'industry_code', 'job_title_code', 'location_code', 'Rating', 'salary_range', 'company_age', 'seniority', 'python', 'sql', 'aws', 'tableau', 'big_data', 'deep_learning', 'cuda', 'stats'
+
+Target variable: 'avg_salary'
+
+Models used:
+- Linear Regression
+- Decision Tree 
+- Random Forest 
+- XGBoost
+
+Performance Metrics:
+- Root Mean Square Error
+- Mean Absolute Error
+- R^2
+
+## Summary of results
+
+Random Forest model was able to predict 'avg_salary' with the best, R^2, MAE, and RMSE scores. XGBoost was the second best predictor. Linear regression, performed worst. 'Rating' was the most important feature. 
+
+## Next possible steps...
+
+The original dataset has ~660 rows and 15 columns. To improve the project, the dataset could be scraped again to include more meta information about each job posting and collect data over wider range. There is no data about the date the job was posted, it could be interesting to analyze trends over time. One could also do hyperparameter tuning to improve performance of XG model and add other models into consideration. 
+
